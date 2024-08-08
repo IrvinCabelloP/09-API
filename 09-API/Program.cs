@@ -14,19 +14,34 @@ namespace _09_API
         {
             string url = "https://pokeapi.co/api/v2/pokemon/";
 
-            Console.WriteLine("¿De qué pokémon necesitas tener información?");
-            Console.WriteLine("Puedes buscar por medio de ID o Nombre.");
-            string? input = Console.ReadLine();          
-            if (input != null)
+            Console.WriteLine("Puedes buscar información de un pokémon por medio de ID o Nombre.");
+            int opcion;
+            do
             {
-                string nombrePokemon = input;
-                string urlCompleta = (url + nombrePokemon).ToLower();
-                await HacerSolicitudGet(urlCompleta);
+                Console.WriteLine("¿Quieres hacer una búsqueda?");
+                Console.WriteLine("\t1-Si");
+                Console.WriteLine("\t2-No");
+                opcion = Int32.Parse(Console.ReadLine());
+                if(opcion == 2)
+                {
+                    break;
+                }
+                Console.WriteLine("¿De qué pokémon necesitas tener información?");
+                string? input = Console.ReadLine();
+                if (input != null)
+                {
+                    string nombrePokemon = input;
+                    string urlCompleta = (url + nombrePokemon).ToLower();
+                    await HacerSolicitudGet(urlCompleta);
+                    Console.WriteLine("\n\n");
+                }
+                else
+                {
+                    Console.WriteLine("Entrada inválida. Por favor, introduce el nombre de un Pokémon.");
+                }
             }
-            else
-            {
-                Console.WriteLine("Entrada inválida. Por favor, introduce el nombre de un Pokémon.");
-            }
+            while(opcion != 2);
+
         }
 
         public static async Task HacerSolicitudGet(string urlCompleta)
